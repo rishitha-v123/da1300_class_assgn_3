@@ -17,7 +17,7 @@ def printer_queue_order(pages: List[int]) -> List[int]:
         List of document numbers in the order they finish printing.
     """
     n = len(pages)
-    r_q = deque(n)
+    r_q = deque(range(n))
     f_r =[]
     while len(r_q)!= 0:
         i =  r_q.popleft()
