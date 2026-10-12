@@ -1,3 +1,4 @@
+
 from typing import Optional
 
 
@@ -10,24 +11,29 @@ class TreeNode:
 
 
 def count_fair_managers(root: Optional[TreeNode]) -> int:
-    """
-    Problem 3: Fair managers in an org chart.
+    count = 0
 
-    Given the root of a binary tree where each node has a `salary`,
-    count the number of nodes whose salary equals the floor-division
-    average salary of their entire subtree (including themselves).
+    def find(node):
+        nonlocal count
 
-    Args:
-        root: root TreeNode of the org chart (or None for empty chart).
+        if node is None:
+            return 0, 0
 
-    Returns:
-        Number of fair managers in the tree.
-    """
-    pass
+        ls, ln = find(node.left)
+        rs, rn = find(node.right)
+
+        total = ls + rs + node.salary
+        num = ln + rn + 1
+
+        if node.salary == total // num:
+            count += 1
+
+        return total, num
+
+    find(root)
+    return count
 
 
 if __name__ == "__main__":
-    # Example sanity check (see test.py for the real test cases)
-    # root = [1] -> a single employee is trivially a fair manager
     root = TreeNode(1)
     print(count_fair_managers(root))  # expected: 1
