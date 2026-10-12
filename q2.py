@@ -16,8 +16,23 @@ def surviving_ships(ships: List[int]) -> List[int]:
     Returns:
         List of signed engine powers of surviving ships, left to right.
     """
-    pass
-
+    stack_ =[]
+    for ship in ships :
+        a = True
+        while stack_ and stack_[-1] > 0 and ship <0:
+            if  abs(ship) > abs(stack_[-1]):
+                stack_.pop()
+            elif abs(ship) == abs(stack_[-1]):
+                stack_.pop()
+                a = False
+                break
+            else:
+                a = False 
+                break
+        if a == True:
+            stack_.append(ship)
+    return stack_
+ 
 
 if __name__ == "__main__":
     # Example sanity checks (see test.py for the real test cases)
